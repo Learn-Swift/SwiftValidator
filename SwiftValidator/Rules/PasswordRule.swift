@@ -18,10 +18,24 @@ public class PasswordRule : RegexRule {
     // no length. One uppercase. One lowercae. One number.
     // static let regex = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[a-z]).*?$"
     
-    static let regex = "^(?=.*?[A-Z]).{8,}$"
-    
-    public convenience init(message : String = "Must be 8 characters with 1 uppercase") {
-        self.init(regex: PasswordRule.regex, message : message)
+    //static let regex = "^(?=.*?[A-Z]).{6,}$"
+
+	/***
 	
+	^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$
+
+	^.*              : Start
+	(?=.{8,})        : Length
+	(?=.*[a-zA-Z])   : Letters
+	(?=.*\d)         : Digits
+	(?=.*[!#$%&? "]) : Special characters
+	.*$              : End
+
+	*/
+
+	static let regex = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[a-z])(?=.*[!#$%&? \"]).{6,}$"
+
+	public convenience init(message : String = "Must be 8 characters with 1 uppercase") {
+        self.init(regex: PasswordRule.regex, message : message)
     }
 }
